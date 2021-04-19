@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/projectSettingsUpdater.xml
+/.idea.Game_Of_Life_App.iml
+/modules.xml
+# Datasource local storage ignored files
+/../../../../../../../../:\Users\mauri\RiderProjects\Game_Of_Life_App\.idea\.idea.Game_Of_Life_App\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
