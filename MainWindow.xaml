@@ -5,8 +5,139 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Game_Of_Life_App"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow"
+        Height="480"
+        Width="480">
     <Grid>
         
+        <Canvas
+            x:Name="Spielfläche"
+            HorizontalAlignment="Left"
+            Height="280"
+            VerticalAlignment="Top"
+            Width="280"
+            Margin="150, 30"
+            Background="LightGray"
+        />
+
+        <Label
+          Content="Höhe:"
+          HorizontalAlignment="Left"
+          VerticalAlignment="Top"
+          Margin="10, 30"
+          />
+        <TextBox
+          Name="InputHeight"
+          TextChanged="InputHeight_OnTextInput"
+          PreviewTextInput="PreviewTextInput_Number"
+          HorizontalAlignment="Left"
+          Height="20"
+          VerticalAlignment="Top"
+          Width="75"
+          Margin="65, 30"
+          >
+            10
+        </TextBox>
+        
+        <Label
+            Content="Breite:"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Margin="10, 60"
+            />
+        <TextBox
+            Name="InputWidth"
+            TextChanged="InputWidth_OnTextInput"
+            PreviewTextInput="PreviewTextInput_Number"
+            HorizontalAlignment="Left"
+            Height="20"
+            VerticalAlignment="Top"
+            Width="75"
+            Margin="65, 60"
+            >
+            10
+        </TextBox>
+        
+        <Label
+            Content="Timer(s):"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Margin="10, 90"
+        />
+        <TextBox
+            Name="InputTimer"
+            TextChanged="InputTimer_OnTextInput"
+            PreviewTextInput="PreviewTextInput_Number"
+            HorizontalAlignment="Left"
+            Height="20"
+            VerticalAlignment="Top"
+            Width="75"
+            Margin="65, 90"
+        >
+            5
+        </TextBox>
+        
+        <Button
+            Name="ButtonRender"
+            Content="Erstelle Spielfeld"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Width="100"
+            Margin="10, 140"
+            Click="ButtonRender_Click"
+        ></Button>
+        
+        <Button
+            Name="ButtonRandomize"
+            IsEnabled="False"
+            Content="Zellen zufällig setzen"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Width="130"
+            Margin="10"
+            Click="ButtonRandomize_OnClick"
+        ></Button>
+        
+        
+        <Label
+            Content="Anzahl Startzellen:"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Margin="10, 38"
+        />
+        <TextBox
+            Name="InputStartCells"
+            TextChanged="InputStartCells_OnTextInput"
+            PreviewTextInput="PreviewTextInput_Number"
+            IsEnabled="False"
+            HorizontalAlignment="Left"
+            Height="20"
+            VerticalAlignment="Bottom"
+            Width="75"
+            Margin="120, 40"
+        >
+            10
+        </TextBox>
+        <Button
+            Name="ButtonCancel"
+            Content="Abbrechen"
+            IsEnabled="false"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Width="75"
+            Margin="10, 10, 100, 10"
+            Click="ButtonCancel_OnClick"
+        ></Button>
+        
+        <Button
+            Name="ButtonStart"
+            IsEnabled="False"
+            Content="Start"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Width="75"
+            Margin="10"
+            Click="Start_Click"
+        ></Button>
     </Grid>
 </Window>
