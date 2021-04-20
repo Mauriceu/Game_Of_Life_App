@@ -109,7 +109,7 @@ namespace Game_Of_Life_App
                 Fill = Brushes.White,
                 DataContext = this
             };
-            rectangle.MouseDown += StatusChange;
+            rectangle.MouseLeftButtonDown += StatusChange;
             _rectangle = rectangle;
 
             spielfläche.Children.Add(rectangle);

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -29,25 +30,26 @@ namespace Game_Of_Life_App
 
         private int _height = 10;
         private int _width = 10;
-        private int _timer = 0;
-
+        private int _timer = 5;
         private int _customMaxLivingStartCells = 10;
         private int MAX_LIVING_STARTCELLS;
 
-        
+
         //regex that matches disallowed text for text-inputs
         private static readonly Regex _regex = new Regex("[0-9]+$");
         public MainWindow()
         {
-            InitializeComponent();
-        }
+            InitializeComponent(); }
 
         private void ButtonRender_Click(object sender, RoutedEventArgs e)
         {
             Spielfläche.Children.Clear();
             _board = new GameBoard(Spielfläche, _height, _width);
             _board.FillBoard();
-            
+
+            var geometry = new RectangleGeometry(new Rect(0, 0, 140, 140));
+            Spielfläche.Clip = geometry;
+
             ButtonStart.IsEnabled = true;
             MAX_LIVING_STARTCELLS = _height * _width;
             InputStartCells.IsEnabled = true;
@@ -80,7 +82,11 @@ namespace Game_Of_Life_App
         private void DeactivateButtons()
         {
             ButtonCancel.IsEnabled = true;
-            Spielfläche.IsEnabled = false;
+            foreach ( var cell in Spielfläche.Children)
+            {
+                ((Rectangle) cell).IsEnabled = false;
+            }
+            
             ButtonRandomize.IsEnabled = false;
             ButtonRender.IsEnabled = false;
             ButtonStart.IsEnabled = false;
@@ -91,7 +97,10 @@ namespace Game_Of_Life_App
         private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
         {
             _timerRef?.Stop();
-            Spielfläche.IsEnabled = true;
+            foreach ( var cell in Spielfläche.Children)
+            {
+                ((Rectangle) cell).IsEnabled = true;
+            }
             ButtonCancel.IsEnabled = false;
             ButtonRandomize.IsEnabled = true;
             ButtonRender.IsEnabled = true;
@@ -156,6 +165,15 @@ namespace Game_Of_Life_App
         private void PreviewTextInput_Number(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !_regex.IsMatch(e.Text);
+        }
+
+        private void Spielfläche_OnMouseMove(object sender, MouseEventArgs e)
+        {
+            Canvas spielfläche = sender as Canvas;
+            if (e.RightButton == MouseButtonState.Pressed)
+            {
+                e.GetPosition(Spielfläche);
+            }
         }
     }
 }

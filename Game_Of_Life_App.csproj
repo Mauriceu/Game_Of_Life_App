@@ -50,8 +50,8 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
+        <Compile Include="Cell.cs" />
         <Compile Include="GameBoard.cs" />
-        <Compile Include="src\Cell.cs" />
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
