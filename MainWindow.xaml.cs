@@ -34,6 +34,11 @@ namespace Game_Of_Life_App
         private int _customMaxLivingStartCells = 10;
         private int MAX_LIVING_STARTCELLS;
 
+        
+        // needed to update the view
+        private Point _oldPosition;
+        private Point _newPosition;
+
 
         //regex that matches disallowed text for text-inputs
         private static readonly Regex _regex = new Regex("[0-9]+$");
@@ -43,19 +48,17 @@ namespace Game_Of_Life_App
 
         private void ButtonRender_Click(object sender, RoutedEventArgs e)
         {
-            Spielfläche.Children.Clear();
+            _board.RenderGrid();
+            
             _board = new GameBoard(Spielfläche, _height, _width);
             _board.FillBoard();
-
-            var geometry = new RectangleGeometry(new Rect(0, 0, 140, 140));
-            Spielfläche.Clip = geometry;
 
             ButtonStart.IsEnabled = true;
             MAX_LIVING_STARTCELLS = _height * _width;
             InputStartCells.IsEnabled = true;
             ButtonRandomize.IsEnabled = true;
         }
-        
+
         private void ButtonRandomize_OnClick(object sender, RoutedEventArgs e)
         {
             _board.FillBoard();
@@ -167,13 +170,14 @@ namespace Game_Of_Life_App
             e.Handled = !_regex.IsMatch(e.Text);
         }
 
-        private void Spielfläche_OnMouseMove(object sender, MouseEventArgs e)
+        private void Spielfläche_OnMouseUp(object sender, MouseEventArgs e)
         {
-            Canvas spielfläche = sender as Canvas;
-            if (e.RightButton == MouseButtonState.Pressed)
-            {
-                e.GetPosition(Spielfläche);
-            }
+            _newPosition = e.GetPosition(Spielfläche);
+            _board.UpdateGrid();
+        }
+        private void Spielfläche_OnMouseDown(object sender, MouseEventArgs e)
+        {
+            _oldPosition = e.GetPosition(Spielfläche);
         }
     }
 }

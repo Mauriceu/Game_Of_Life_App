@@ -10,16 +10,19 @@
         Width="480">
     <Grid>
         
-        <Canvas
+        <Grid
             x:Name="Spielfläche"
+            ShowGridLines="True"
             HorizontalAlignment="Left"
-            Height="280"
             VerticalAlignment="Top"
+            Height="280"
             Width="280"
-            Margin="150, 30"
+            Margin="150, 30, 0, 0"
             Background="LightGray"
-            MouseMove="Spielfläche_OnMouseMove"
-           />
+            MouseRightButtonDown="Spielfläche_OnMouseDown"
+            MouseRightButtonUp="Spielfläche_OnMouseUp"
+            >
+        </Grid>
 
             <Label
           Content="Höhe:"

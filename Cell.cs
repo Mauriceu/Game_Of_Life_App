@@ -100,7 +100,7 @@ namespace Game_Of_Life_App
             }
         }
 
-        public void RenderRectangle(int row, int cell, int height, int width, Canvas spielfläche)
+        public void RenderRectangle(int row, int cell, int height, int width, Grid spielfläche)
         {
             var rectangle = new Rectangle
             {
@@ -109,12 +109,14 @@ namespace Game_Of_Life_App
                 Fill = Brushes.White,
                 DataContext = this
             };
+            
             rectangle.MouseLeftButtonDown += StatusChange;
             _rectangle = rectangle;
-
+            Grid.SetColumn(_rectangle, row );
+            Grid.SetRow(_rectangle, cell );
             spielfläche.Children.Add(rectangle);
-            Canvas.SetLeft(rectangle, row * spielfläche.ActualHeight / height + 1 );
-            Canvas.SetTop(rectangle, cell * spielfläche.ActualWidth / width + 1 );
+            //Canvas.SetLeft(rectangle, row * spielfläche.ActualHeight / height + 1 );
+            //Canvas.SetTop(rectangle, cell * spielfläche.ActualWidth / width + 1 );
         }
     }
 }
