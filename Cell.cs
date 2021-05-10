@@ -44,8 +44,6 @@ namespace Game_Of_Life_App
         {
             _cellIsAlive = value;
             _cellLivesAfterGenerationChange = value;
-            
-            _rectangle.Fill = value ? Brushes.Black : Brushes.White;
         }
 
         public void AddNeighbour(Cell neighbour)
@@ -106,7 +104,7 @@ namespace Game_Of_Life_App
             {
                 Height = spielfläche.ActualHeight / height - 2,
                 Width = spielfläche.ActualWidth / width - 2,
-                Fill = Brushes.White,
+                Fill = _cellIsAlive ? Brushes.Black : Brushes.White,
                 DataContext = this
             };
             

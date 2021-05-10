@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,7 +20,7 @@ namespace Game_Of_Life_App
         private Grid Spielfläche;
 
         // 2D-Liste, enthält alle existierenden Zellen
-        public ObservableCollection<List<Cell>> Board;
+        public List<List<Cell>> Board;
 
         private int _width;
         private int _height;
@@ -31,7 +32,7 @@ namespace Game_Of_Life_App
             _height = height;
         }
         
-        // Renders the grid with given postion-values
+        // Renders the grid
         public void RenderGrid()
         {
             Spielfläche.ColumnDefinitions.Clear();
@@ -52,58 +53,18 @@ namespace Game_Of_Life_App
                 {
                     Cell gameCell = Board[row][cell];
                     gameCell.RenderRectangle(row, cell, _height, _width, Spielfläche);
-                    
                 }
             }
         }
 
-        public void UpdateGrid(int offsetX = 0, int offsetY = 0)
-        {
-            if (offsetY != 0)
-            {
-                for (int i = 0; i < _height; i++)
-                {
-                    int actualViewY = _height - offsetX;
-                    for (int ii = 0; ii < _height - offsetY; ii++)
-                    { 
-                        Cell gameCell = Board[actualViewY][ii];
-                        gameCell.RenderRectangle(actualViewY, ii, _height, _width, Spielfläche);
-                    }
-                }
-            }
-            
-            if (offsetX != 0)
-            {
-                for (int i = offsetX; i >= 0; i--)
-                {
-                    int actualViewY = _height - offsetX;
-                    int actualViewX = _width;
 
-                    Cell gameCell = Board[actualViewY][actualViewX];
-                    gameCell.RenderRectangle(actualViewY, actualViewX, _height, _width, Spielfläche);
-                }
-            }
-
-            if (offsetY != 0 && offsetX != 0)
-            {
-                for (int i = offsetX + offsetY; i >= 0; i--)
-                {
-                    int actualViewY = _height - i;
-                    int actualViewX = _width + offsetX;
-
-                    Cell gameCell = Board[actualViewY][actualViewX];
-                    gameCell.RenderRectangle(actualViewY, actualViewX, _height, _width, Spielfläche);
-                }
-            }
-        }
-        
         /**
          * Erstellt die 2D-Liste,
          * Anhand der Übergabeparameter wird die Größe (Höhe, Breite) festgelegt
          */
         public void FillBoard()
         {
-            Board = new ObservableCollection<List<Cell>>();
+            Board = new List<List<Cell>>();
 
             for (int posY = 0; posY < _height; posY++)
             {
@@ -115,15 +76,12 @@ namespace Game_Of_Life_App
                 SetNeighbourCells(posY);
             }
         }
-        
+
         // Erstellt die Zelle und rendered die Zell-Fläche auf dem Grid
         private void CreateCell(int row, int cell)
         {
             string id = row.ToString() + cell;
             Cell gameCell = new Cell(id);
-            
-            gameCell.RenderRectangle(row, cell, _height, _width, Spielfläche);
-
             Board[row].Add(gameCell);
         }
 
@@ -189,6 +147,7 @@ namespace Game_Of_Life_App
                 if (!Board[row][cell].IsAlive())
                 {
                     Board[row][cell].StatusChange(true);
+                    Board[row][cell].RenderRectangle(row, cell, _height, _width, Spielfläche);
                     currentLivingStartCells++;
                 }
             } while (currentLivingStartCells < maxLivingStartCells);

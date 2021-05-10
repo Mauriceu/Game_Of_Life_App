@@ -36,6 +36,7 @@ namespace Game_Of_Life_App
 
         
         // needed to update the view
+        private Camera _camera;
         private Point _oldPosition;
         private Point _newPosition;
 
@@ -44,14 +45,23 @@ namespace Game_Of_Life_App
         private static readonly Regex _regex = new Regex("[0-9]+$");
         public MainWindow()
         {
-            InitializeComponent(); }
+            InitializeComponent();
+            
+        }
 
         private void ButtonRender_Click(object sender, RoutedEventArgs e)
         {
-            _board.RenderGrid();
-            
             _board = new GameBoard(Spielfläche, _height, _width);
             _board.FillBoard();
+
+            Spielfläche.Clip = new RectangleGeometry(
+                new Rect(
+                    0,0,
+                    280, 
+                    280
+                ));
+            _board.RenderGrid();
+            _camera = new Camera(_height, _width, _board.Board, Spielfläche);
 
             ButtonStart.IsEnabled = true;
             MAX_LIVING_STARTCELLS = _height * _width;
@@ -170,11 +180,22 @@ namespace Game_Of_Life_App
             e.Handled = !_regex.IsMatch(e.Text);
         }
 
-        private void Spielfläche_OnMouseUp(object sender, MouseEventArgs e)
+        private void Spielfläche_OnMouseMove(object sender, MouseEventArgs e)
         {
-            _newPosition = e.GetPosition(Spielfläche);
-            _board.UpdateGrid();
+            if (e.RightButton == MouseButtonState.Pressed)
+            {
+                _newPosition = e.GetPosition(Spielfläche);
+                int movedByRecsX = (int)Math.Round((_newPosition.X - _oldPosition.X) / (Spielfläche.ActualWidth / _width));
+                int movedByRecsY = (int)Math.Round((_newPosition.Y - _oldPosition.Y) / (Spielfläche.ActualHeight / _height));
+                if (movedByRecsX > 0 || movedByRecsY > 0)
+                {
+                    _camera.UpdateGrid(movedByRecsY, movedByRecsX);
+                    _oldPosition = _newPosition;
+                }
+
+            }
         }
+
         private void Spielfläche_OnMouseDown(object sender, MouseEventArgs e)
         {
             _oldPosition = e.GetPosition(Spielfläche);
