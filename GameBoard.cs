@@ -129,7 +129,6 @@ namespace Game_Of_Life_App
         
         /**
          * Board wird von oben links nach unten rechts iteriert. Jede Zelle durchläuft die "lebt"/"stirbt"-Logik
-         * Übergabeparameter werden von der Timer-Funktion erwartet, sind jedoch nicht notwendig
          */
         public void NextGeneration()
         {
@@ -168,6 +167,9 @@ namespace Game_Of_Life_App
 
             return dispatcherTimer;
         }
+        /**
+         * Übergabeparameter werden von einer Timer-Event-Funktion erwartet, sind jedoch nicht notwendig
+         */
         private void NextGenerationOnTimer(object sender, EventArgs e)
         {
             NextGeneration();
