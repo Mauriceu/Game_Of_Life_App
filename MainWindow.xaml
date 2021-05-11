@@ -18,7 +18,6 @@
             Width="280"
             Margin="150, 30"
             Background="LightGray"
-            MouseMove="Spielfläche_OnMouseMove"
            />
 
             <Label

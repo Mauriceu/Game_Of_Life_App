@@ -39,16 +39,14 @@ namespace Game_Of_Life_App
         private static readonly Regex _regex = new Regex("[0-9]+$");
         public MainWindow()
         {
-            InitializeComponent(); }
+            InitializeComponent();
+        }
 
         private void ButtonRender_Click(object sender, RoutedEventArgs e)
         {
             Spielfläche.Children.Clear();
             _board = new GameBoard(Spielfläche, _height, _width);
             _board.FillBoard();
-
-            var geometry = new RectangleGeometry(new Rect(0, 0, 140, 140));
-            Spielfläche.Clip = geometry;
 
             ButtonStart.IsEnabled = true;
             MAX_LIVING_STARTCELLS = _height * _width;
@@ -166,14 +164,6 @@ namespace Game_Of_Life_App
         {
             e.Handled = !_regex.IsMatch(e.Text);
         }
-
-        private void Spielfläche_OnMouseMove(object sender, MouseEventArgs e)
-        {
-            Canvas spielfläche = sender as Canvas;
-            if (e.RightButton == MouseButtonState.Pressed)
-            {
-                e.GetPosition(Spielfläche);
-            }
-        }
+        
     }
 }
