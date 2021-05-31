@@ -15,13 +15,14 @@ namespace Game_Of_Life_App
         private const int SOLITUDE_MAXIMUM = 1;
         private const int BIRTH = 3;
         
-        public string Id { get; }
+        public string Id { get; set; }
         private bool _cellLivesAfterGenerationChange;
         private bool _cellIsAlive;
         private readonly List<Cell> _neighbours;
         
         // reference to rendered object
         private Rectangle _rectangle;
+
         public Cell(string id)
         {
             Id = id;
@@ -100,21 +101,10 @@ namespace Game_Of_Life_App
             }
         }
 
-        public void RenderRectangle(int row, int cell, int height, int width, Canvas spielfläche)
+        public void SetRectangle(Rectangle rectangle)
         {
-            var rectangle = new Rectangle
-            {
-                Height = spielfläche.ActualHeight / height - 2,
-                Width = spielfläche.ActualWidth / width - 2,
-                Fill = Brushes.White,
-                DataContext = this
-            };
             rectangle.MouseLeftButtonDown += StatusChange;
             _rectangle = rectangle;
-
-            spielfläche.Children.Add(rectangle);
-            Canvas.SetLeft(rectangle, row * spielfläche.ActualHeight / height + 1 );
-            Canvas.SetTop(rectangle, cell * spielfläche.ActualWidth / width + 1 );
         }
     }
 }

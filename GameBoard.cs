@@ -14,62 +14,82 @@ namespace Game_Of_Life_App
     public class GameBoard
     {
 
-        // Reference to rendered Canvas
-        private Canvas Spielfläche;
-
         // 2D-Liste, enthält alle existierenden Zellen
         public List<List<Cell>> Board;
+        
+        private readonly int _numberRows;
+        private readonly int _numberColumns;
 
-        private int _width;
-        private int _height;
-
-        public GameBoard(Canvas spielfläche, int height, int width)
+        public GameBoard(int numberRows, int numberColumns)
         {
-            Spielfläche = spielfläche;
-            _width = width;
-            _height = height;
+            _numberRows = numberRows;
+            _numberColumns = numberColumns;
         }
         
         /**
-         * Erstellt die 2D-Liste,
-         * Anhand der Übergabeparameter wird die Größe (Höhe, Breite) festgelegt
+         * Erstellt die 2D-Liste
          */
-        public void FillBoard()
+        public void FillBoard(Canvas Spielfläche)
         {
+            Spielfläche.Children.Clear();
+            Spielfläche.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            Spielfläche.Arrange(new Rect(0.0, 0.0, Spielfläche.DesiredSize.Width, Spielfläche.DesiredSize.Height));
             Board = new List<List<Cell>>();
 
-            for (int posY = 0; posY < _height; posY++)
+            for (int posY = 0; posY < _numberRows; posY++)
             {
                 Board.Add(new List<Cell>());
-                for (int posX = 0; posX < _width; posX++)
+                for (int posX = 0; posX < _numberColumns; posX++)
                 {
-                    CreateCell(posY, posX);
+                    CreateCell(posY, posX, Spielfläche);
                 }
                 SetNeighbourCells(posY);
             }
         }
         
         // Erstellt die Zelle und rendered die Zell-Fläche auf dem Canvas
-        private void CreateCell(int row, int cell)
+        private void CreateCell(int posY, int posX, Canvas Spielfläche)
         {
-            string id = row.ToString() + cell;
+            string id = posY.ToString() + posX;
             Cell gameCell = new Cell(id);
-
-            gameCell.RenderRectangle(row, cell, _height, _width, Spielfläche);
-
-            Board[row].Add(gameCell);
+            
+            Rectangle rectangle =  new Rectangle
+            {
+                Height = Spielfläche.ActualHeight / _numberRows - 2,
+                Width = Spielfläche.ActualWidth / _numberColumns - 2,
+                Fill = Brushes.White,
+            };
+            gameCell.SetRectangle(rectangle);
+            Board[posY].Add(gameCell);
+           
+            Spielfläche.Children.Add(rectangle);
+            Canvas.SetLeft(rectangle,  posX * Spielfläche.ActualHeight / _numberRows + 1 );
+            Canvas.SetTop(rectangle, posY * Spielfläche.ActualWidth / _numberColumns + 1 );
+            
+             /*
+            var txt = new TextBox()
+            {
+                Text = Math.Floor((Spielfläche.ActualHeight / _height - 2)).ToString() + " " + Math.Floor((Spielfläche.ActualWidth / _width - 2)),
+                Height = Spielfläche.ActualHeight / _height - 2,
+                Width = Spielfläche.ActualWidth / _width - 2,
+            };
+            Spielfläche.Children.Add(txt);
+            Canvas.SetLeft(txt, posX * Spielfläche.ActualHeight /  _height + 1 );
+            Canvas.SetTop(txt, posY * Spielfläche.ActualWidth / _width + 1 );
+             */
+            
         }
 
         /**
-         * Iteriert die aktuelle Board-Reihe ein zweites mal und setzt die Zelle der vorherigen Reihe (falls vorhanden)
-         * und die Zellen der aktuellen Reihe als Nachbarzellen
+         * Iteriert die erstellte Board-Reihe und setzt die entsprechenden Zellen der vorherigen (falls vorhanden)
+         * und aktuellen Reihe als Nachbarzellen
          */
         private void SetNeighbourCells(int posY)
         {
-            for (int posX = 0; posX < _width; posX++)
+            for (int posX = 0; posX < _numberColumns; posX++)
             {
-                IterateRowHelper(posY, posX,-1);
-                IterateRowHelper(posY, posX,0);
+                IterateRowHelper(posY, posX,-1); // iterate previous row
+                IterateRowHelper(posY, posX,0); // iterate current row
             }
         }
         
@@ -80,12 +100,16 @@ namespace Game_Of_Life_App
          */
         private void IterateRowHelper(int posY, int posX,  int offsetY)
         {
-            if ((posY + offsetY) == -1 || (posY + offsetY) == _height)
+            // if row is out of bounds
+            if ((posY + offsetY) == -1 || (posY + offsetY) == _numberRows)
             {
                 return;
             }
             
+            // get currentCell
             Cell currentCell = Board[posY][posX];
+            
+            // currentCell is "centered", iterate from next left item to next right item
             for (var offsetX = -1; offsetX <= 1; offsetX++)
             {
                 Cell neighbour = null;
@@ -116,8 +140,8 @@ namespace Game_Of_Life_App
             
             do
             {
-                int row = r.Next(1, _height);
-                int cell = r.Next(1, _width);
+                int row = r.Next(0, _numberRows);
+                int cell = r.Next(0, _numberColumns);
 
                 if (!Board[row][cell].IsAlive())
                 {

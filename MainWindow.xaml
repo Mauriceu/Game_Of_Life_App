@@ -12,16 +12,14 @@
 
         <Canvas
             x:Name="Spielfläche"
-            HorizontalAlignment="Left"
             Height="350"
-            VerticalAlignment="Top"
             Width="350"
             Margin="226,32,0,0"
             Background="LightGray"
            />
         <Border BorderBrush="#FFBFB9B9" BorderThickness="1" HorizontalAlignment="Left" Height="439.9" VerticalAlignment="Top" Width="592.67" CornerRadius="5" Margin="0,19.2,0,0"/>
 
-        <Canvas Margin="10,19.2,406.4,34.8">
+            <Canvas Margin="10,19.2,406.4,34.8">
 
 
             <Label Content="" MinHeight="2" Height="2" Background="#FFBFB9B9" Canvas.Left="8.8" Canvas.Top="277.2" Width="30" />
@@ -39,114 +37,128 @@
             </Label>
 
             <Label
-          Content="Höhe:"
-          HorizontalAlignment="Left"
-          VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="60.04"/>
-
-            <TextBox
-          x:Name="InputHeight"
-          TextChanged="InputHeight_OnTextInput"
-          PreviewTextInput="PreviewTextInput_Number"
-          HorizontalAlignment="Left"
-          Height="20"
-          VerticalAlignment="Top"
-          Width="45" Canvas.Left="71" Canvas.Top="66"
-          Text="10"
-          />
-
-
-            <Label
-            Content="Breite:"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="98"
-            />
-            <TextBox
-            x:Name="InputWidth"
-            TextChanged="InputWidth_OnTextInput"
-            PreviewTextInput="PreviewTextInput_Number"
-            HorizontalAlignment="Left"
-            Height="20"
-            VerticalAlignment="Top"
-            Width="45" Canvas.Left="71" Canvas.Top="98"
-            Text="10"
+                Content="Höhe:"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="60.04"
             />
 
-            <Label
-            Content="Timer(s):"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top" Canvas.Left="7" Canvas.Top="131.04"
-        />
             <TextBox
-            x:Name="InputTimer"
-            TextChanged="InputTimer_OnTextInput"
-            PreviewTextInput="PreviewTextInput_Number"
-            HorizontalAlignment="Left"
-            Height="20"
-            VerticalAlignment="Top"
-            Width="38" Canvas.Left="78" Canvas.Top="137"
-        Text="2"
-        />
-
-            <Button
-            x:Name="ButtonRender"
-            Content="Erstelle Spielfeld"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Width="100"
-            Click="ButtonRender_Click" Canvas.Top="195" Canvas.Left="16"
-        />
-            <Label Content="Zufällig Einstellen "  Canvas.Left="40" Canvas.Top="266" Width="114.4"  Foreground="#FFC2B2B2" FontWeight="Bold" FontFamily="Univers 45 Light" Background="{x:Null}"/>
-            <Label Content="" MinHeight="2" Height="2" Background="#FFBFB9B9" Canvas.Left="8.8" Canvas.Top="31.6" Width="30" />
-
-            <Button
-            x:Name="ButtonRandomize"
-            IsEnabled="False"
-            Content="Zellen zufällig setzen"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
-            Width="130"
-            Click="ButtonRandomize_OnClick" Canvas.Top="342" Canvas.Left="10"
-        />
+                x:Name="InputHeight"
+                TextChanged="InputHeight_OnTextInput"
+                PreviewTextInput="PreviewTextInput_Number"
+                HorizontalAlignment="Left"
+                Height="20"
+                VerticalAlignment="Top"
+                Width="45" Canvas.Left="71" Canvas.Top="66"
+                Text="10"
+            />
 
 
             <Label
-            Content="Anzahl Startzellen:"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Bottom" Canvas.Left="7" Canvas.Top="300"
-        />
+                Content="Breite:"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="98"
+            />
             <TextBox
-            x:Name="InputStartCells"
-            TextChanged="InputStartCells_OnTextInput"
-            PreviewTextInput="PreviewTextInput_Number"
-            IsEnabled="False"
-            HorizontalAlignment="Left"
-            Height="20"
-            VerticalAlignment="Bottom"
-            Width="44" Canvas.Left="140" Canvas.Top="304"
-        Text="10"
-        />
-            <Button
-            x:Name="ButtonCancel"
-            Content="Abbrechen"
-            IsEnabled="false"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Width="75"
-            Click="ButtonCancel_OnClick" Canvas.Left="10" Canvas.Top="403"
-        />
+                x:Name="InputWidth"
+                TextChanged="InputWidth_OnTextInput"
+                PreviewTextInput="PreviewTextInput_Number"
+                HorizontalAlignment="Left"
+                Height="20"
+                VerticalAlignment="Top"
+                Width="45" Canvas.Left="71" Canvas.Top="98"
+                Text="10"
+            />
+
+            <Label
+                Content="Timer(s):"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top" Canvas.Left="7" Canvas.Top="131.04"
+            />
+            <TextBox
+                x:Name="InputTimer"
+                TextChanged="InputTimer_OnTextInput"
+                PreviewTextInput="PreviewTextInput_Number"
+                HorizontalAlignment="Left"
+                Height="20"
+                VerticalAlignment="Top"
+                Width="38" Canvas.Left="78" Canvas.Top="137"
+                Text="2"
+            />
 
             <Button
-            x:Name="ButtonStart"
-            IsEnabled="False"
-            Content="Start"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Width="75"
-            Click="Start_Click" Canvas.Left="109" Canvas.Top="403"
-        />
-            <Label Content="" MinHeight="2" Height="2" Background="#FFBFB9B9" Canvas.Left="153.4" Canvas.Top="277.2" Width="23.2" />
-            <Label Content="" MinHeight="2" Height="2" Background="#FFBFB9B9" Canvas.Left="153.4" Canvas.Top="31.6" Width="23.2" />
-            <Border BorderBrush="#FFBFB9B9" BorderThickness="1,4" Height="422" Canvas.Top="10" Width="201" CornerRadius="5"/>
+                x:Name="ButtonRender"
+                Content="Erstelle Spielfeld"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="100"
+                Click="ButtonRender_Click" Canvas.Top="195" Canvas.Left="16"
+            />
+            <Label
+                Content="Zufällig Einstellen "
+                Canvas.Left="40" Canvas.Top="266"
+                Width="114.4"
+                Foreground="#FFC2B2B2"
+                FontWeight="Bold" FontFamily="Univers 45 Light"
+                Background="{x:Null}"
+            />
+            <Label
+                Content=""
+                MinHeight="2" Height="2"
+                Background="#FFBFB9B9"
+                Canvas.Left="8.8" Canvas.Top="31.6"
+                Width="30"
+            />
+            
+            <Button
+                x:Name="ButtonRandomize"
+                IsEnabled="False"
+                Content="Zellen zufällig setzen"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Width="130"
+                Click="ButtonRandomize_OnClick" Canvas.Top="342" Canvas.Left="10"
+            />
+
+
+            <Label
+                Content="Anzahl Startzellen:"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom" Canvas.Left="7" Canvas.Top="300"
+            />
+            <TextBox
+                  x:Name="InputStartCells"
+                  TextChanged="InputStartCells_OnTextInput"
+                  PreviewTextInput="PreviewTextInput_Number"
+                  IsEnabled="False"
+                  HorizontalAlignment="Left"
+                  Height="20"
+                  VerticalAlignment="Bottom"
+                  Width="44" Canvas.Left="140" Canvas.Top="304"
+                  Text="10"
+              />
+            <Button
+                x:Name="ButtonCancel"
+                Content="Abbrechen"
+                IsEnabled="false"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Width="75"
+                Click="ButtonCancel_OnClick" Canvas.Left="10" Canvas.Top="403"
+            />
+
+            <Button
+                x:Name="ButtonStart"
+                IsEnabled="False"
+                Content="Start"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Width="75"
+                Click="Start_Click" Canvas.Left="109" Canvas.Top="403"
+            />
+                <Label Content="" MinHeight="2" Height="2" Background="#FFBFB9B9" Canvas.Left="153.4" Canvas.Top="277.2" Width="23.2" />
+                <Label Content="" MinHeight="2" Height="2" Background="#FFBFB9B9" Canvas.Left="153.4" Canvas.Top="31.6" Width="23.2" />
+                <Border BorderBrush="#FFBFB9B9" BorderThickness="1,4" Height="422" Canvas.Top="10" Width="201" CornerRadius="5"/>
 
 
         </Canvas>

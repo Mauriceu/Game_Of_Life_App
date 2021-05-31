@@ -28,15 +28,16 @@ namespace Game_Of_Life_App
         // if playing with a timer
         private DispatcherTimer _timerRef;
 
-        private int _height = 10;
-        private int _width = 10;
+        private int _numberRows = 10;
+        private int _numberColumns = 10;
         private int _timer = 5;
         private int _customMaxLivingStartCells = 10;
-        private int MAX_LIVING_STARTCELLS;
+        private int MAX_LIVING_STARTCELLS = 100;
 
 
         //regex that matches disallowed text for text-inputs
         private static readonly Regex _regex = new Regex("[0-9]+$");
+
         public MainWindow()
         {
             InitializeComponent();
@@ -45,18 +46,23 @@ namespace Game_Of_Life_App
         private void ButtonRender_Click(object sender, RoutedEventArgs e)
         {
             Spielfläche.Children.Clear();
-            _board = new GameBoard(Spielfläche, _height, _width);
-            _board.FillBoard();
-
+            _board = new GameBoard(_numberRows, _numberColumns);
+            _board.FillBoard(Spielfläche);
+            
+            MAX_LIVING_STARTCELLS = _numberRows * _numberColumns;
+            if (_customMaxLivingStartCells > MAX_LIVING_STARTCELLS)
+            {
+                _customMaxLivingStartCells = _numberRows * _numberColumns;
+                InputStartCells.Text = (_numberRows * _numberColumns).ToString();
+            }
             ButtonStart.IsEnabled = true;
-            MAX_LIVING_STARTCELLS = _height * _width;
             InputStartCells.IsEnabled = true;
             ButtonRandomize.IsEnabled = true;
         }
         
         private void ButtonRandomize_OnClick(object sender, RoutedEventArgs e)
         {
-            _board.FillBoard();
+            _board.FillBoard(Spielfläche);
             _board.RandomizeLivingCells(_customMaxLivingStartCells);
         }
         
@@ -94,7 +100,7 @@ namespace Game_Of_Life_App
         }
         private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
         {
-            _timerRef?.Stop();
+            _timerRef.Stop();
             foreach ( var cell in Spielfläche.Children)
             {
                 ((Rectangle) cell).IsEnabled = true;
@@ -111,55 +117,92 @@ namespace Game_Of_Life_App
         private void InputWidth_OnTextInput(object sender, TextChangedEventArgs e)
         {
             var box = (TextBox)sender;
-            if (!_regex.IsMatch(box.Text)) return;
+            if (!_regex.IsMatch(box.Text))
+            {
+                InputWidth.BorderBrush = Brushes.Red;
+                return;
+            }
 
             int value = Int32.Parse(box.Text);
             if (value <= WIDTH_MAXIMUM)
             {
-                _width = value;
+                InputWidth.BorderBrush = Brushes.Black;
+                _numberColumns = value;
+            }
+            else
+            {
+                InputWidth.BorderBrush = Brushes.Red;
             }
         }
         private void InputHeight_OnTextInput(object sender, TextChangedEventArgs e)
         {
             var box = (TextBox)sender;
-            if (!_regex.IsMatch(box.Text)) return;
+            if (!_regex.IsMatch(box.Text))
+            {
+                InputHeight.BorderBrush = Brushes.Red;
+                return;
+            }
+
 
             int value = Int32.Parse(box.Text);
             if (value <= HEIGHT_MAXIMUM)
             {
-                _height = value;
+                InputHeight.BorderBrush = Brushes.Black;
+                _numberRows = value;
+            }
+            else
+            {
+                InputHeight.BorderBrush = Brushes.Red;
             }
         }
+
+        private void InputStartCells_OnTextInput(object sender, TextChangedEventArgs e)
+        {
+            var text = ((TextBox) sender).Text;
+            if (!_regex.IsMatch(text))
+            {
+                InputStartCells.BorderBrush = Brushes.Red;
+                return;
+            }
+
+            int value = Int32.Parse(text);
+            if (value <= MAX_LIVING_STARTCELLS)
+            {
+                InputStartCells.BorderBrush = Brushes.Black;
+                _customMaxLivingStartCells = value;
+            }
+            else
+            {
+                InputStartCells.BorderBrush = Brushes.Red;
+            }
+        }
+
         private void InputTimer_OnTextInput(object sender, TextChangedEventArgs e)
         {
             var text = ((TextBox)sender).Text;
             
             if (text == "")
-            {
                 _timer = 0;
+            
+
+            if (!_regex.IsMatch(text))
+            {
+                InputTimer.BorderBrush = Brushes.Red;
+                return;
             }
 
-            if (!_regex.IsMatch(text)) return;
 
             int value = Int32.Parse(text);
             if (value <= TIMER_MAXIMUM)
             {
+                InputTimer.BorderBrush = Brushes.Black;
                 _timer = value;
             }
-        }
-        
-        private void InputStartCells_OnTextInput(object sender, TextChangedEventArgs e)
-        {
-            var text = ((TextBox)sender).Text;
-            if (!_regex.IsMatch(text)) return;
-
-            int value = Int32.Parse(text);
-            if (value <= MAX_LIVING_STARTCELLS)
+            else
             {
-                _customMaxLivingStartCells = value;
+                InputTimer.BorderBrush = Brushes.Red;
             }
         }
-
         private void PreviewTextInput_Number(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !_regex.IsMatch(e.Text);
