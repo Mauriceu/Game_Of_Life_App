@@ -55,7 +55,7 @@ namespace Game_Of_Life_App
             Spielfläche.Children.Clear();
             Spielfläche.RowDefinitions.Clear();
             Spielfläche.ColumnDefinitions.Clear();
-            Spielfläche.ShowGridLines = true;
+
             for (int posY = 0; posY < _numberRows; posY++)
             {
                 Spielfläche.RowDefinitions.Add(new RowDefinition());
@@ -75,8 +75,7 @@ namespace Game_Of_Life_App
             
             Rectangle rectangle =  new Rectangle
             {
-                Height = Spielfläche.DesiredSize.Height / _numberRows - 2,
-                Width = Spielfläche.DesiredSize.Width / _numberColumns - 2,
+                Stroke = Brushes.Black,
                 Fill = Brushes.White,
             };
             gameCell.SetRectangle(rectangle);
