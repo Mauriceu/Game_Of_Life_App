@@ -10,10 +10,12 @@
         Width="638.2">
     <Grid Margin="10,0,4,10.8">
 
-        <Canvas
+        <Grid
             x:Name="Spielfläche"
             Height="350"
             Width="350"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
             Margin="226,32,0,0"
             Background="LightGray"
            />

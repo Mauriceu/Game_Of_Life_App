@@ -29,16 +29,16 @@ namespace Game_Of_Life_App
         /**
          * Erstellt die 2D-Liste
          */
-        public void FillBoard(Canvas Spielfläche)
+        public void FillBoard(Grid Spielfläche)
         {
-            Spielfläche.Children.Clear();
-            Spielfläche.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            Spielfläche.Arrange(new Rect(0.0, 0.0, Spielfläche.DesiredSize.Width, Spielfläche.DesiredSize.Height));
+            InitializeGrid(Spielfläche);
+
             Board = new List<List<Cell>>();
 
             for (int posY = 0; posY < _numberRows; posY++)
             {
                 Board.Add(new List<Cell>());
+
                 for (int posX = 0; posX < _numberColumns; posX++)
                 {
                     CreateCell(posY, posX, Spielfläche);
@@ -46,38 +46,46 @@ namespace Game_Of_Life_App
                 SetNeighbourCells(posY);
             }
         }
+
+        /**
+         * Create Grid-Rows and -Columns
+         */
+        private void InitializeGrid(Grid Spielfläche)
+        {
+            Spielfläche.Children.Clear();
+            Spielfläche.RowDefinitions.Clear();
+            Spielfläche.ColumnDefinitions.Clear();
+            Spielfläche.ShowGridLines = true;
+            for (int posY = 0; posY < _numberRows; posY++)
+            {
+                Spielfläche.RowDefinitions.Add(new RowDefinition());
+            }
+
+            for (int posX = 0; posX < _numberColumns; posX++)
+            {
+                Spielfläche.ColumnDefinitions.Add(new ColumnDefinition());
+            }
+        }
         
         // Erstellt die Zelle und rendered die Zell-Fläche auf dem Canvas
-        private void CreateCell(int posY, int posX, Canvas Spielfläche)
+        private void CreateCell(int posY, int posX, Grid Spielfläche)
         {
             string id = posY.ToString() + posX;
             Cell gameCell = new Cell(id);
             
             Rectangle rectangle =  new Rectangle
             {
-                Height = Spielfläche.ActualHeight / _numberRows - 2,
-                Width = Spielfläche.ActualWidth / _numberColumns - 2,
+                Height = Spielfläche.DesiredSize.Height / _numberRows - 2,
+                Width = Spielfläche.DesiredSize.Width / _numberColumns - 2,
                 Fill = Brushes.White,
             };
             gameCell.SetRectangle(rectangle);
             Board[posY].Add(gameCell);
-           
+
+            Grid.SetColumn(rectangle, posX);
+            Grid.SetRow(rectangle, posY);
+            
             Spielfläche.Children.Add(rectangle);
-            Canvas.SetLeft(rectangle,  posX * Spielfläche.ActualHeight / _numberRows + 1 );
-            Canvas.SetTop(rectangle, posY * Spielfläche.ActualWidth / _numberColumns + 1 );
-            
-             /*
-            var txt = new TextBox()
-            {
-                Text = Math.Floor((Spielfläche.ActualHeight / _height - 2)).ToString() + " " + Math.Floor((Spielfläche.ActualWidth / _width - 2)),
-                Height = Spielfläche.ActualHeight / _height - 2,
-                Width = Spielfläche.ActualWidth / _width - 2,
-            };
-            Spielfläche.Children.Add(txt);
-            Canvas.SetLeft(txt, posX * Spielfläche.ActualHeight /  _height + 1 );
-            Canvas.SetTop(txt, posY * Spielfläche.ActualWidth / _width + 1 );
-             */
-            
         }
 
         /**
