@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game_Of_Life_App", "Game_Of_Life_App.csproj", "{55E1222C-6264-4793-A20E-C2DEE572E4EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game_Of_life_Test", "Game_Of_life_Test\Game_Of_life_Test.csproj", "{783DDB5C-A20C-4EAD-9311-2B727A50B4B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{55E1222C-6264-4793-A20E-C2DEE572E4EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55E1222C-6264-4793-A20E-C2DEE572E4EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55E1222C-6264-4793-A20E-C2DEE572E4EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{783DDB5C-A20C-4EAD-9311-2B727A50B4B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{783DDB5C-A20C-4EAD-9311-2B727A50B4B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{783DDB5C-A20C-4EAD-9311-2B727A50B4B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{783DDB5C-A20C-4EAD-9311-2B727A50B4B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

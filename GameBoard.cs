@@ -30,10 +30,8 @@ namespace Game_Of_Life_App
         /**
          * Erstellt die 2D-Liste
          */
-        public void FillBoard(Grid Spielfläche)
+        public void FillBoard()
         {
-            InitializeGrid(Spielfläche);
-
             Board = new List<List<Cell>>();
 
             for (int posY = 0; posY < _numberRows; posY++)
@@ -42,50 +40,18 @@ namespace Game_Of_Life_App
 
                 for (int posX = 0; posX < _numberColumns; posX++)
                 {
-                    CreateCell(posY, posX, Spielfläche);
+                    CreateCell(posY, posX);
                 }
                 SetNeighbourCells(posY);
             }
         }
 
-        /**
-         * Create Grid-Rows and -Columns
-         */
-        private void InitializeGrid(Grid Spielfläche)
-        {
-            Spielfläche.Children.Clear();
-            Spielfläche.RowDefinitions.Clear();
-            Spielfläche.ColumnDefinitions.Clear();
-
-            for (int posY = 0; posY < _numberRows; posY++)
-            {
-                Spielfläche.RowDefinitions.Add(new RowDefinition());
-            }
-
-            for (int posX = 0; posX < _numberColumns; posX++)
-            {
-                Spielfläche.ColumnDefinitions.Add(new ColumnDefinition());
-            }
-        }
-        
         // Erstellt die Zelle und rendered die Zell-Fläche auf dem Canvas
-        private void CreateCell(int posY, int posX, Grid Spielfläche)
+        private void CreateCell(int posY, int posX)
         {
             string id = posY.ToString() + posX;
             Cell gameCell = new Cell(id);
-            
-            Rectangle rectangle = new Rectangle
-            {
-                Stroke = Brushes.Black,
-                Fill = Brushes.White,
-            };
-            gameCell.SetRectangle(rectangle);
             Board[posY].Add(gameCell);
-
-            Grid.SetColumn(rectangle, posX);
-            Grid.SetRow(rectangle, posY);
-            
-            Spielfläche.Children.Add(rectangle);
         }
 
         /**

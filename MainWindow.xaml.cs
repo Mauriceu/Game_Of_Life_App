@@ -44,7 +44,8 @@ namespace Game_Of_Life_App
         private void ButtonRender_Click(object sender, RoutedEventArgs e)
         {
             _board = new GameBoard(_numberRows, _numberColumns);
-            _board.FillBoard(Spielfläche);
+            _board.FillBoard();
+            InitializeGrid();
 
             MAX_LIVING_STARTCELLS = _numberRows * _numberColumns;
             if (_customMaxLivingStartCells > MAX_LIVING_STARTCELLS)
@@ -59,9 +60,51 @@ namespace Game_Of_Life_App
             ButtonRandomize.IsEnabled = true;
         }
         
+        /**
+         * Create Grid-Rows and -Columns
+         */
+        private void InitializeGrid()
+        {
+            Spielfläche.Children.Clear();
+            Spielfläche.RowDefinitions.Clear();
+            Spielfläche.ColumnDefinitions.Clear();
+
+            for (int posY = 0; posY < _numberRows; posY++)
+            {
+                Spielfläche.RowDefinitions.Add(new RowDefinition());
+            }
+
+            for (int posX = 0; posX < _numberColumns; posX++)
+            {
+                Spielfläche.ColumnDefinitions.Add(new ColumnDefinition());
+            }
+            CreateRectangles();
+        }
+        
+        private void CreateRectangles()
+        {
+            for (int posY = 0; posY < _numberRows; posY++)
+            {
+                for (int posX = 0; posX < _numberColumns; posX++)
+                {
+                    Rectangle rectangle = new Rectangle
+                    {
+                        Stroke = Brushes.Black,
+                        Fill = Brushes.White,
+                    };
+                    _board.Board[posY][posX].SetRectangle(rectangle);
+
+                    Grid.SetColumn(rectangle, posX);
+                    Grid.SetRow(rectangle, posY);
+                    Spielfläche.Children.Add(rectangle);
+                }
+            }
+        }
+        
+        
         private void ButtonRandomize_OnClick(object sender, RoutedEventArgs e)
         {
-            _board.FillBoard(Spielfläche);
+            _board.FillBoard();
             _board.RandomizeLivingCells(_customMaxLivingStartCells);
         }
         

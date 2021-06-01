@@ -45,8 +45,11 @@ namespace Game_Of_Life_App
         {
             _cellIsAlive = value;
             _cellLivesAfterGenerationChange = value;
-            
-            _rectangle.Fill = value ? Brushes.Black : Brushes.White;
+
+            if (_rectangle != null)
+            { 
+                _rectangle.Fill = value ? Brushes.Black : Brushes.White;
+            }
         }
 
         public void AddNeighbour(Cell neighbour)
@@ -58,6 +61,11 @@ namespace Game_Of_Life_App
             return _neighbours.Contains(cell);
         }
 
+        public List<Cell> GetNeighbours()
+        {
+            return _neighbours;
+        }
+
         public bool IsAlive()
         {
             return _cellIsAlive;
@@ -65,7 +73,11 @@ namespace Game_Of_Life_App
         public void EvolveCell()
         {
             _cellIsAlive = _cellLivesAfterGenerationChange;
-            _rectangle.Fill = _cellIsAlive ? Brushes.Black : Brushes.White;
+
+            if (_rectangle != null)
+            {
+                _rectangle.Fill = _cellIsAlive ? Brushes.Black : Brushes.White;
+            }
         }
 
         public void CheckIfCellLivesAfterGenerationChange()
