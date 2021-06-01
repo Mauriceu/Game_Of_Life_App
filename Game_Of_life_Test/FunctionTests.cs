@@ -123,7 +123,6 @@ namespace Game_Of_life_Test
 
     public class CellTest
     {
-
         [Test]
         public void StatusChange_Test()
         {
