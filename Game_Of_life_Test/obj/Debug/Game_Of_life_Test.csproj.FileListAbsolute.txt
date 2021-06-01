@@ -1,0 +1,9 @@
+C:\Users\mauri\RiderProjects\Game_Of_Life_App\Game_Of_life_Test\bin\Debug\Game_Of_life_Test.dll
+C:\Users\mauri\RiderProjects\Game_Of_Life_App\Game_Of_life_Test\bin\Debug\Game_Of_life_Test.pdb
+C:\Users\mauri\RiderProjects\Game_Of_Life_App\Game_Of_life_Test\bin\Debug\Game_Of_Life_App.exe
+C:\Users\mauri\RiderProjects\Game_Of_Life_App\Game_Of_life_Test\bin\Debug\nunit.framework.dll
+C:\Users\mauri\RiderProjects\Game_Of_Life_App\Game_Of_life_Test\bin\Debug\Game_Of_Life_App.pdb
+C:\Users\mauri\RiderProjects\Game_Of_Life_App\Game_Of_life_Test\bin\Debug\nunit.framework.xml
+C:\Users\mauri\RiderProjects\Game_Of_Life_App\Game_Of_life_Test\obj\Debug\Game_Of_life_Test.csprojResolveAssemblyReference.cache
+C:\Users\mauri\RiderProjects\Game_Of_Life_App\Game_Of_life_Test\obj\Debug\Game_Of_life_Test.dll
+C:\Users\mauri\RiderProjects\Game_Of_Life_App\Game_Of_life_Test\obj\Debug\Game_Of_life_Test.pdb
