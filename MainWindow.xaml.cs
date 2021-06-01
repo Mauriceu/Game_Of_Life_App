@@ -19,7 +19,7 @@ namespace Game_Of_Life_App
     {
         private static readonly int HEIGHT_MAXIMUM = 200;
         private static readonly int WIDTH_MAXIMUM = 200;
-        private static readonly int TIMER_MAXIMUM = 600;
+        private static readonly int TIMER_MAXIMUM = 60;
 
         private GameBoard _board;
         
@@ -72,7 +72,7 @@ namespace Game_Of_Life_App
             {
                 DeactivateButtons();
                 _board.NextGeneration();
-                _timerRef = _board.PlayWithTimer(400);
+                _timerRef = _board.PlayWithTimer(10);
             }
             else if (_timer > 0 && _timer < Int32.MaxValue)
             {
@@ -122,15 +122,17 @@ namespace Game_Of_Life_App
 
         private void InputWidth_OnTextInput(object sender, TextChangedEventArgs e)
         {
-            var box = (TextBox)sender;
-            if (!_regex.IsMatch(box.Text))
+            var text = ((TextBox)sender).Text;
+            if (!_regex.IsMatch(text))
             {
+                if (text == String.Empty) return;
+                
                 InputWidth.BorderBrush = Brushes.Red;
                 ShowError("Breite muss eine ganze Zahl sein");
                 return;
             }
 
-            int value = Int32.Parse(box.Text);
+            int value = Int32.Parse(text);
             if (value <= WIDTH_MAXIMUM)
             {
                 InputWidth.BorderBrush = Brushes.Black;
@@ -144,16 +146,18 @@ namespace Game_Of_Life_App
         }
         private void InputHeight_OnTextInput(object sender, TextChangedEventArgs e)
         {
-            var box = (TextBox)sender;
-            if (!_regex.IsMatch(box.Text))
+            var text = ((TextBox)sender).Text;
+            if (!_regex.IsMatch(text))
             {
+                if (text == String.Empty) return;
+                
                 InputHeight.BorderBrush = Brushes.Red;
                 ShowError("Höhe muss eine ganze Zahl sein");
                 return;
             }
 
 
-            int value = Int32.Parse(box.Text);
+            int value = Int32.Parse(text);
             if (value <= HEIGHT_MAXIMUM)
             {
                 InputHeight.BorderBrush = Brushes.Black;
@@ -171,6 +175,8 @@ namespace Game_Of_Life_App
             var text = ((TextBox) sender).Text;
             if (!_regex.IsMatch(text))
             {
+                if (text == String.Empty) return;
+                
                 InputStartCells.BorderBrush = Brushes.Red;
                 ShowError("Anzahl muss eine ganze Zahl sein");
                 return;
@@ -202,7 +208,7 @@ namespace Game_Of_Life_App
             if (!_regex.IsMatch(text))
             {
                 InputTimer.BorderBrush = Brushes.Red;
-                ShowError("Zeit in Sekunden muss eine ganze Zahl sein");
+                ShowError("Zeit in Sekunden muss eine ganze Zahl sein. \nValide Werte sind außerdem 0 für die höchstmöglichste Frequenz (Hardwarebedingt), sowie keine Angabe für manuellen Generationswechsel.");
                 return;
             }
 
@@ -216,7 +222,7 @@ namespace Game_Of_Life_App
             else
             {
                 InputTimer.BorderBrush = Brushes.Red;
-                ShowError("Zeit in Sekunden darf nicht höher als " + TIMER_MAXIMUM + " (10 Minuten) sein.");
+                ShowError("Zeit in Sekunden darf nicht höher als " + TIMER_MAXIMUM + " (1 Minute) sein. \nValide Werte sind außerdem 0 für die höchstmöglichste Frequenz (Hardwarebedingt), sowie keine Eingabe für manuellen Generationswechsel.");
             }
         }
         private void PreviewTextInput_Number(object sender, TextCompositionEventArgs e)

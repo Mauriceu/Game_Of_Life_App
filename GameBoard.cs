@@ -131,7 +131,7 @@ namespace Game_Of_Life_App
                 }
 
                 if (neighbour != null &&
-                    neighbour.Id != Board[posY][posX].Id &&
+                    neighbour.GetId() != Board[posY][posX].GetId() &&
                     !currentCell.HasNeighbour(neighbour))
                 {
                     currentCell.AddNeighbour(neighbour);

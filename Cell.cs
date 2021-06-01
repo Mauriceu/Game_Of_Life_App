@@ -14,8 +14,8 @@ namespace Game_Of_Life_App
         private const int OVERPOPULATION_MINIMUM = 4;
         private const int SOLITUDE_MAXIMUM = 1;
         private const int BIRTH = 3;
-        
-        public string Id { get; set; }
+
+        public string _id;
         private bool _cellLivesAfterGenerationChange;
         private bool _cellIsAlive;
         private readonly List<Cell> _neighbours;
@@ -25,7 +25,7 @@ namespace Game_Of_Life_App
 
         public Cell(string id)
         {
-            Id = id;
+            _id = id;
             _neighbours = new List<Cell>();
             _cellIsAlive = false;
             _cellLivesAfterGenerationChange = _cellIsAlive;
@@ -99,6 +99,11 @@ namespace Game_Of_Life_App
             {
                 _cellLivesAfterGenerationChange = true;
             }
+        }
+
+        public string GetId()
+        {
+            return _id;
         }
 
         public void SetRectangle(Rectangle rectangle)
