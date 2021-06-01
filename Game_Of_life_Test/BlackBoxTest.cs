@@ -5,14 +5,13 @@ using NUnit.Framework;
 namespace Game_Of_life_Test
 {
     [TestFixture]
-    public class Tests
+    public class BlackBox
     {
         private GameBoard _board;
 
         private int _height = 4;
         private int _width = 4;
-        
-        
+
         [SetUp]
         public void Setup()
         {

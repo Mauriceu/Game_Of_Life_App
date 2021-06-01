@@ -130,6 +130,8 @@ namespace Game_Of_Life_App
          */
         public void NextGeneration()
         {
+            if (!_generationChangeFinished) return;
+
             _generationChangeFinished = false;
             foreach (var row in Board)
             {
@@ -172,11 +174,7 @@ namespace Game_Of_Life_App
          */
         private void NextGenerationOnTimer(object sender, EventArgs e)
         {
-            if (_generationChangeFinished)
-            {
-                NextGeneration();
-            }
-            
+            NextGeneration();
         }
     }
 }
