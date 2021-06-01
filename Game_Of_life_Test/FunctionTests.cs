@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Game_Of_Life_App;
+﻿using Game_Of_Life_App;
 using NUnit.Framework;
 
 namespace Game_Of_life_Test
