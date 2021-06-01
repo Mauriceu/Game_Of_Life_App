@@ -106,6 +106,7 @@ namespace Game_Of_Life_App
         private void ButtonRandomize_OnClick(object sender, RoutedEventArgs e)
         {
             _board.FillBoard();
+            InitializeGrid();
             _board.RandomizeLivingCells(_customMaxLivingStartCells);
         }
         
