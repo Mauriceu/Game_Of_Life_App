@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,7 +33,7 @@ namespace Game_Of_Life_App
         private int MAX_LIVING_STARTCELLS = 100;
 
 
-        //regex that matches allowed text (numbers) for text-inputs
+        //regex that matches disallowed text for text-inputs
         private static readonly Regex _regex = new Regex("[0-9]+$");
 
         public MainWindow()
@@ -69,11 +70,14 @@ namespace Game_Of_Life_App
             Spielfläche.ColumnDefinitions.Clear();
 
             for (int posY = 0; posY < _numberRows; posY++)
+            {
                 Spielfläche.RowDefinitions.Add(new RowDefinition());
+            }
 
             for (int posX = 0; posX < _numberColumns; posX++)
+            {
                 Spielfläche.ColumnDefinitions.Add(new ColumnDefinition());
-            
+            }
             CreateRectangles();
         }
         
@@ -101,7 +105,6 @@ namespace Game_Of_Life_App
         private void ButtonRandomize_OnClick(object sender, RoutedEventArgs e)
         {
             _board.FillBoard();
-            InitializeGrid();
             _board.RandomizeLivingCells(_customMaxLivingStartCells);
         }
         
