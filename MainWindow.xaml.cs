@@ -32,7 +32,7 @@ namespace Game_Of_Life_App
         private int MAX_LIVING_STARTCELLS = 100;
 
 
-        //regex that matches disallowed text for text-inputs
+        //regex that matches allowed text (numbers) for text-inputs
         private static readonly Regex _regex = new Regex("[0-9]+$");
 
         public MainWindow()
@@ -55,7 +55,6 @@ namespace Game_Of_Life_App
             
             // activate buttons
             ButtonStart.IsEnabled = true;
-            MAX_LIVING_STARTCELLS = _numberRows * _numberColumns;//
             InputStartCells.IsEnabled = true;
             ButtonRandomize.IsEnabled = true;
         }
@@ -70,14 +69,11 @@ namespace Game_Of_Life_App
             Spielfläche.ColumnDefinitions.Clear();
 
             for (int posY = 0; posY < _numberRows; posY++)
-            {
                 Spielfläche.RowDefinitions.Add(new RowDefinition());
-            }
 
             for (int posX = 0; posX < _numberColumns; posX++)
-            {
                 Spielfläche.ColumnDefinitions.Add(new ColumnDefinition());
-            }
+            
             CreateRectangles();
         }
         
