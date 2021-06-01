@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Timers;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Game_Of_Life_App
