@@ -20,6 +20,7 @@ namespace Game_Of_Life_App
         private readonly int _numberRows;
         private readonly int _numberColumns;
 
+        private bool _generationChangeFinished = true;
         public GameBoard(int numberRows, int numberColumns)
         {
             _numberRows = numberRows;
@@ -73,7 +74,7 @@ namespace Game_Of_Life_App
             string id = posY.ToString() + posX;
             Cell gameCell = new Cell(id);
             
-            Rectangle rectangle =  new Rectangle
+            Rectangle rectangle = new Rectangle
             {
                 Stroke = Brushes.Black,
                 Fill = Brushes.White,
@@ -163,6 +164,7 @@ namespace Game_Of_Life_App
          */
         public void NextGeneration()
         {
+            _generationChangeFinished = false;
             foreach (var row in Board)
             {
                 foreach (Cell cell in row)
@@ -171,6 +173,7 @@ namespace Game_Of_Life_App
                 }
             }
             FinishGenerationChange();
+            _generationChangeFinished = true;
         }
 
         /**
@@ -193,7 +196,7 @@ namespace Game_Of_Life_App
         {
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += NextGenerationOnTimer;
-            dispatcherTimer.Interval = new TimeSpan(0,0,interval);
+            dispatcherTimer.Interval = new TimeSpan(0,0,0, 0,interval);
             dispatcherTimer.Start();
 
             return dispatcherTimer;
@@ -203,7 +206,11 @@ namespace Game_Of_Life_App
          */
         private void NextGenerationOnTimer(object sender, EventArgs e)
         {
-            NextGeneration();
+            if (_generationChangeFinished)
+            {
+                NextGeneration();
+            }
+            
         }
     }
 }
