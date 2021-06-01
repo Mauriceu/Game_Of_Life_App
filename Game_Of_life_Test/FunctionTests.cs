@@ -1,4 +1,5 @@
-﻿using Game_Of_Life_App;
+﻿using System.Reflection;
+using Game_Of_Life_App;
 using NUnit.Framework;
 
 namespace Game_Of_life_Test
@@ -123,6 +124,7 @@ namespace Game_Of_life_Test
 
     public class CellTest
     {
+
         [Test]
         public void StatusChange_Test()
         {
