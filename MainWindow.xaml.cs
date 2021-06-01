@@ -77,6 +77,9 @@ namespace Game_Of_Life_App
             CreateRectangles();
         }
         
+        /**
+         * Create rectangle for every cell
+         */
         private void CreateRectangles()
         {
             for (int posY = 0; posY < _numberRows; posY++)
