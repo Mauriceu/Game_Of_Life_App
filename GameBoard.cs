@@ -102,13 +102,13 @@ namespace Game_Of_Life_App
         }
         
         /**
-         * Iteriert die aktuelle Board-Reihe durch und setzt gefundene Zellen als Nachbarzellen,
+         * Iteriert durch die unmittelbaren Nachbarzellen links und rechts der aktuellen Zelle und setzt diese als Nachbarzellen,
          * ignoriert OutOfBounds-Error:
          * Diese bedeuten nämlich einfach, dass an diesem Platz keine Nachbarzelle existiert (außerhalb des Spielfeldes)
          */
         private void IterateRowHelper(int posY, int posX,  int offsetY)
         {
-            // if row is out of bounds
+            // if row is out of bounds or maxValue
             if ((posY + offsetY) == -1 || (posY + offsetY) == _numberRows)
             {
                 return;
