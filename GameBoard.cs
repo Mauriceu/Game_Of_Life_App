@@ -1,5 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Timers;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Game_Of_Life_App
@@ -40,7 +46,7 @@ namespace Game_Of_Life_App
             }
         }
 
-        // Erstellt die Zelle
+        // Erstellt die Zelle und rendered die Zell-Fläche auf dem Canvas
         private void CreateCell(int posY, int posX)
         {
             string id = posY.ToString() + posX;
@@ -124,8 +130,6 @@ namespace Game_Of_Life_App
          */
         public void NextGeneration()
         {
-            if (!_generationChangeFinished) return;
-
             _generationChangeFinished = false;
             foreach (var row in Board)
             {
@@ -168,7 +172,11 @@ namespace Game_Of_Life_App
          */
         private void NextGenerationOnTimer(object sender, EventArgs e)
         {
-            NextGeneration();
+            if (_generationChangeFinished)
+            {
+                NextGeneration();
+            }
+            
         }
     }
 }
