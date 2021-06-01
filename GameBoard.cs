@@ -46,7 +46,7 @@ namespace Game_Of_Life_App
             }
         }
 
-        // Erstellt die Zelle und rendered die Zell-Fläche auf dem Canvas
+        // Erstellt die Zelle
         private void CreateCell(int posY, int posX)
         {
             string id = posY.ToString() + posX;
