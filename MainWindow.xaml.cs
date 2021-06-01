@@ -56,6 +56,7 @@ namespace Game_Of_Life_App
             
             // activate buttons
             ButtonStart.IsEnabled = true;
+            MAX_LIVING_STARTCELLS = _numberRows * _numberColumns;//
             InputStartCells.IsEnabled = true;
             ButtonRandomize.IsEnabled = true;
         }
